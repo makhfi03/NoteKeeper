@@ -53,5 +53,5 @@ Lancer le serveur de développement PHP À la racine du projet, exécutez la com
 php -S localhost:8080 -t public
 Accéder à l'application Ouvrez votre navigateur et allez sur : http://localhost:8080
 
-##💡 Auteur
+## 💡 Auteur
 Développé par MAKHFI Ghita.
