@@ -1,9 +1,12 @@
 <mxfile host="65bd71144e">
     <diagram id="PZC9d2B9SER8gcpaTqYk" name="Page-1">
-        <mxGraphModel dx="894" dy="400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="737" dy="645" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
+                <mxCell id="19" value="" style="html=1;whiteSpace=wrap;" vertex="1" parent="1">
+                    <mxGeometry x="10" width="740" height="580" as="geometry"/>
+                </mxCell>
                 <mxCell id="2" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
                     <mxGeometry x="120" y="275" width="30" height="60" as="geometry"/>
                 </mxCell>
@@ -51,6 +54,9 @@
                 </mxCell>
                 <mxCell id="17" style="edgeStyle=none;html=1;entryX=0.75;entryY=0.1;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;" edge="1" parent="1" source="16" target="2">
                     <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="&lt;span style=&quot;color: rgb(0, 0, 0); white-space: nowrap;&quot;&gt;Systeme de gestion de Note&lt;/span&gt;" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;recursiveResize=0;container=1;collapsible=0;width=160;" vertex="1" parent="1">
+                    <mxGeometry x="200" width="550" height="580" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
