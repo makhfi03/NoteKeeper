@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - NoteKeeper</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -39,7 +38,6 @@
             }
         }
     </script>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
@@ -47,9 +45,7 @@
 </head>
 <body class="bg-cream-100 font-sans antialiased h-screen flex flex-row overflow-hidden">
     
-    <!-- SIDEBAR -->
     <aside class="w-64 bg-cream-50 border-r border-cream-200 flex flex-col relative z-20 shadow-[4px_0_24px_rgba(42,34,25,0.02)]">
-        <!-- Logo -->
         <div class="h-20 flex items-center gap-3 px-6 border-b border-cream-200 shrink-0">
             <div class="w-8 h-8 rounded-lg bg-coffee-700 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cream-200"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"/><path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/><path d="m21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/></svg>
@@ -59,9 +55,7 @@
             </span>
         </div>
 
-        <!-- Navigation -->
         <nav class="flex-1 overflow-y-auto py-4 px-3">
-            <!-- Accordion Notes -->
             <details class="group" open>
                 <summary class="flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer text-coffee-800 hover:bg-cream-200 transition-colors list-none select-none">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
@@ -70,7 +64,6 @@
                 </summary>
                 
                 <div class="mt-1 ml-4 pl-3 border-l-2 border-cream-200 space-y-1">
-                    <!-- Ajouter Note Button -->
                     <button onclick="openModal()" class="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-coffee-600 hover:text-coffee-900 hover:bg-cream-200 rounded-lg transition-colors text-left group/btn">
                         <div class="w-5 h-5 rounded flex items-center justify-center bg-cream-200 group-hover/btn:bg-coffee-700 group-hover/btn:text-cream-50 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
@@ -78,159 +71,100 @@
                         Ajouter une note
                     </button>
 
-                    <!-- User Notes List -->
                     <div class="pt-2 space-y-1">
-                        <a href="#" class="block px-3 py-2 text-sm font-medium text-coffee-900 bg-cream-200 rounded-lg relative before:absolute before:left-[-13px] before:top-1/2 before:-translate-y-1/2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-coffee-700">Idées de projet</a>
-                        <a href="#" class="block px-3 py-2 text-sm text-coffee-600 hover:text-coffee-900 hover:bg-cream-200 rounded-lg transition-colors relative before:absolute before:left-[-13px] before:top-1/2 before:-translate-y-1/2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-cream-300 hover:before:bg-coffee-400">Liste de courses</a>
-                        <a href="#" class="block px-3 py-2 text-sm text-coffee-600 hover:text-coffee-900 hover:bg-cream-200 rounded-lg transition-colors relative before:absolute before:left-[-13px] before:top-1/2 before:-translate-y-1/2 before:w-1.5 before:h-1.5 before:rounded-full before:bg-cream-300 hover:before:bg-coffee-400">Réunion d'équipe</a>
+                        <?php if (empty($notes)): ?>
+                            <p class="px-3 py-2 text-sm text-coffee-500">Aucune note pour le moment.</p>
+                        <?php else: ?>
+                            <?php foreach($notes as $index => $n): ?>
+                                <?php 
+                                $isActive = (isset($_GET['note_id']) && $_GET['note_id'] == $n['id']) || (!isset($_GET['note_id']) && $index === 0);
+                                $activeClasses = "font-medium text-coffee-900 bg-cream-200 before:bg-coffee-700";
+                                $inactiveClasses = "text-coffee-600 hover:text-coffee-900 hover:bg-cream-200 before:bg-cream-300 hover:before:bg-coffee-400";
+                                ?>
+                                <a href="/dashboard?note_id=<?= $n['id'] ?>" class="block px-3 py-2 text-sm <?= $isActive ? $activeClasses : $inactiveClasses ?> rounded-lg transition-colors relative before:absolute before:left-[-13px] before:top-1/2 before:-translate-y-1/2 before:w-1.5 before:h-1.5 before:rounded-full">
+                                    <?= htmlspecialchars($n['titre']) ?>
+                                </a>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </details>
         </nav>
 
-        <!-- User Profile (Bottom) -->
         <div class="p-4 border-t border-cream-200 shrink-0">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-coffee-300 flex items-center justify-center text-cream-50 font-medium">
-                    JD
+                <div class="w-10 h-10 rounded-full bg-coffee-300 flex items-center justify-center text-cream-50 font-medium uppercase">
+                    <?= $_SESSION['user']['firstname'][0] . $_SESSION['user']['lastname'][0] ?>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-coffee-900 truncate">Jean Dupont</p>
-                    <a href="index.php?page=home" class="text-xs text-coffee-500 hover:text-coffee-800 transition-colors">Déconnexion</a>
+                    <p class="text-sm font-medium text-coffee-900 truncate">
+                        <?= $_SESSION['user']['firstname'] . ' ' . $_SESSION['user']['lastname'] ?>
+                    </p>
+                    <a href="/logout" class="text-xs text-coffee-500 hover:text-coffee-800 transition-colors">Déconnexion</a>
                 </div>
             </div>
         </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
     <main class="flex-1 relative overflow-y-auto bg-cream-100">
-        <!-- Texture -->
         <div class="hero-grain absolute inset-0 z-0 opacity-50"></div>
         
         <div class="relative z-10 p-10 max-w-4xl mx-auto mt-8">
-            <!-- Active Note Header -->
+            <?php 
+            $activeNote = null;
+            if(!empty($notes)) {
+                $activeNote = $notes[0];
+                if(isset($_GET['note_id'])) {
+                    foreach($notes as $n) {
+                        if($n['id'] == $_GET['note_id']) {
+                            $activeNote = $n;
+                            break;
+                        }
+                    }
+                }
+            }
+            ?>
+            
+            <?php if($activeNote): ?>
             <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <h1 class="font-serif font-bold text-4xl text-coffee-900">Idées de projet</h1>
+                <h1 class="font-serif font-bold text-4xl text-coffee-900"><?= htmlspecialchars($activeNote['titre']) ?></h1>
                 <div class="flex gap-2 shrink-0">
                     <button onclick="openEditModal()" class="p-2.5 text-coffee-600 bg-white border border-cream-200 hover:text-coffee-900 hover:border-coffee-300 shadow-sm rounded-xl transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                     </button>
-                    <button class="p-2.5 text-red-500 bg-white border border-cream-200 hover:text-red-700 hover:border-red-200 hover:bg-red-50 shadow-sm rounded-xl transition-all">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
-                    </button>
+                    <form action="/notes/delete" method="POST">
+                        <input type="hidden" name="id" value="<?= $activeNote['id'] ?>">
+                        <button onclick="return confirm('Voulez vous vraiment supprimer cette note ?')" class="p-2.5 text-red-500 bg-white border border-cream-200 hover:text-red-700 hover:border-red-200 hover:bg-red-50 shadow-sm rounded-xl transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                        </button>
+                    </form>
                 </div>
             </div>
 
-            <!-- Note Body -->
             <div class="bg-cream-50 p-8 rounded-3xl shadow-sm border border-cream-200 min-h-[500px]">
-                <div class="prose prose-coffee max-w-none text-coffee-800 leading-relaxed">
-                    <p class="text-lg mb-4">Voici quelques idées pour le nouveau projet NoteKeeper :</p>
-                    <ul class="list-disc pl-5 space-y-2 mb-6">
-                        <li>Utiliser un thème minimaliste et luxueux.</li>
-                        <li>Ajouter des animations fluides avec CSS.</li>
-                        <li>Mettre en place un système de tags pour organiser les notes.</li>
-                    </ul>
-                    <p>À faire pour la semaine prochaine : revoir la palette de couleurs et l'adapter au mode sombre si possible. Il faut aussi penser à l'expérience mobile de la sidebar.</p>
-                </div>
+                <div class="prose prose-coffee max-w-none text-coffee-800 leading-relaxed whitespace-pre-wrap"><?= htmlspecialchars($activeNote['contenu']) ?></div>
             </div>
+            <?php else: ?>
+            <div class="text-center py-20">
+                <h2 class="text-2xl font-serif text-coffee-900">Bienvenue sur NoteKeeper</h2>
+                <p class="text-coffee-500 mt-2">Créez votre première note pour commencer.</p>
+            </div>
+            <?php endif; ?>
         </div>
     </main>
 
-    <!-- MODAL AJOUTER NOTE -->
-    <div id="addNoteModal" class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
-        <!-- Backdrop -->
-        <div class="absolute inset-0 bg-coffee-950/40 backdrop-blur-sm" onclick="closeModal()"></div>
-        
-        <!-- Modal Content -->
-        <div class="bg-cream-50 w-full max-w-xl rounded-[2rem] shadow-2xl relative z-10 transform scale-95 transition-transform duration-300 border border-cream-200 flex flex-col max-h-[90vh]" id="modalContent">
-            <!-- Header -->
-            <div class="px-8 py-6 border-b border-cream-200 flex items-center justify-between shrink-0">
-                <h2 class="font-serif font-bold text-2xl text-coffee-900">Nouvelle note</h2>
-                <button onclick="closeModal()" class="text-coffee-400 hover:text-coffee-800 transition-colors p-2 rounded-full hover:bg-cream-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
-                </button>
-            </div>
+    <?php require_once __DIR__ . '/create.php'; ?>
 
-            <!-- Body -->
-            <div class="p-8 overflow-y-auto">
-                <form action="#" method="POST" class="space-y-6">
-                    <div>
-                        <label for="titre" class="block text-sm font-medium text-coffee-800 mb-2">Titre de la note</label>
-                        <input type="text" id="titre" name="titre" class="w-full px-5 py-3.5 rounded-xl bg-white border border-cream-300 focus:border-coffee-400 focus:ring-2 focus:ring-coffee-400/20 outline-none transition-all text-coffee-900 placeholder-coffee-300 shadow-sm" placeholder="Ex: Réunion d'équipe" required>
-                    </div>
+    <?php require_once __DIR__ . '/edit.php'; ?>
 
-                    <div>
-                        <label for="contenu" class="block text-sm font-medium text-coffee-800 mb-2">Contenu</label>
-                        <textarea id="contenu" name="contenu" rows="8" class="w-full px-5 py-3.5 rounded-xl bg-white border border-cream-300 focus:border-coffee-400 focus:ring-2 focus:ring-coffee-400/20 outline-none transition-all text-coffee-900 placeholder-coffee-300 resize-none shadow-sm" placeholder="Commencez à écrire ici..." required></textarea>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row justify-end gap-3 pt-4">
-                        <button type="button" onclick="closeModal()" class="px-8 py-3.5 text-sm font-semibold tracking-wide uppercase text-coffee-700 bg-transparent border-2 border-coffee-300 rounded-full hover:bg-cream-200 transition-colors">
-                            Annuler
-                        </button>
-                        <button type="submit" class="btn-primary px-8 py-3.5 text-sm font-semibold tracking-wide uppercase text-cream-50 bg-coffee-700 rounded-full shadow-lg shadow-coffee-700/20 transition-all duration-300">
-                            Enregistrer
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL MODIFIER NOTE -->
-    <div id="editNoteModal" class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
-        <!-- Backdrop -->
-        <div class="absolute inset-0 bg-coffee-950/40 backdrop-blur-sm" onclick="closeEditModal()"></div>
-        
-        <!-- Modal Content -->
-        <div class="bg-cream-50 w-full max-w-xl rounded-[2rem] shadow-2xl relative z-10 transform scale-95 transition-transform duration-300 border border-cream-200 flex flex-col max-h-[90vh]" id="editModalContent">
-            <!-- Header -->
-            <div class="px-8 py-6 border-b border-cream-200 flex items-center justify-between shrink-0">
-                <h2 class="font-serif font-bold text-2xl text-coffee-900">Modifier la note</h2>
-                <button onclick="closeEditModal()" class="text-coffee-400 hover:text-coffee-800 transition-colors p-2 rounded-full hover:bg-cream-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
-                </button>
-            </div>
-
-            <!-- Body -->
-            <div class="p-8 overflow-y-auto">
-                <form action="#" method="POST" class="space-y-6">
-                    <div>
-                        <label for="edit_titre" class="block text-sm font-medium text-coffee-800 mb-2">Titre de la note</label>
-                        <input type="text" id="edit_titre" name="titre" value="Idées de projet" class="w-full px-5 py-3.5 rounded-xl bg-white border border-cream-300 focus:border-coffee-400 focus:ring-2 focus:ring-coffee-400/20 outline-none transition-all text-coffee-900 placeholder-coffee-300 shadow-sm" required>
-                    </div>
-
-                    <div>
-                        <label for="edit_contenu" class="block text-sm font-medium text-coffee-800 mb-2">Contenu</label>
-                        <textarea id="edit_contenu" name="contenu" rows="8" class="w-full px-5 py-3.5 rounded-xl bg-white border border-cream-300 focus:border-coffee-400 focus:ring-2 focus:ring-coffee-400/20 outline-none transition-all text-coffee-900 placeholder-coffee-300 resize-none shadow-sm" required>Voici quelques idées pour le nouveau projet NoteKeeper :
-- Utiliser un thème minimaliste et luxueux.
-- Ajouter des animations fluides avec CSS.
-- Mettre en place un système de tags pour organiser les notes.
-
-À faire pour la semaine prochaine : revoir la palette de couleurs et l'adapter au mode sombre si possible. Il faut aussi penser à l'expérience mobile de la sidebar.</textarea>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row justify-end gap-3 pt-4">
-                        <button type="button" onclick="closeEditModal()" class="px-8 py-3.5 text-sm font-semibold tracking-wide uppercase text-coffee-700 bg-transparent border-2 border-coffee-300 rounded-full hover:bg-cream-200 transition-colors">
-                            Annuler
-                        </button>
-                        <button type="submit" class="btn-primary px-8 py-3.5 text-sm font-semibold tracking-wide uppercase text-cream-50 bg-coffee-700 rounded-full shadow-lg shadow-coffee-700/20 transition-all duration-300">
-                            Enregistrer les modifications
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Details/Summary marker removal -->
     <style>
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
     </style>
 
-    <!-- Minimal JS for Modal -->
     <script>
+        const activeNote = <?= $activeNote ? json_encode($activeNote) : 'null' ?>;
+
         const modal = document.getElementById('addNoteModal');
         const modalContent = document.getElementById('modalContent');
 
@@ -250,6 +184,11 @@
         const editModalContent = document.getElementById('editModalContent');
 
         function openEditModal() {
+            if(activeNote) {
+                document.getElementById('edit_id').value = activeNote.id;
+                document.getElementById('edit_titre').value = activeNote.titre;
+                document.getElementById('edit_contenu').value = activeNote.contenu;
+            }
             editModal.classList.remove('opacity-0', 'pointer-events-none');
             editModalContent.classList.remove('scale-95');
             editModalContent.classList.add('scale-100');
@@ -261,5 +200,6 @@
             editModalContent.classList.add('scale-95');
         }
     </script>
+    <script src="/js/validateNote.js"></script>
 </body>
 </html>
