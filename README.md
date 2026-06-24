@@ -21,17 +21,19 @@ NoteKeeper est une application web simple, rapide et sécurisée de gestion de n
 
 ## 📁 Structure du Projet
 
+```text
 NoteKeeper/
 ├── app/
-│   ├── controllers/   # Logique applicative (NoteController, AuthController)
-│   ├── models/        # Intéractions avec la base de données (Note, User)
-│   └── views/         # Interfaces utilisateur (home.php, notes/, auth/)
+│   ├── controllers/   # Logique applicative (NoteController, AuthController...)
+│   ├── models/        # Intéractions avec la base de données (Note, User...)
+│   └── views/         # Interfaces utilisateur (home.php, notes/, auth/...)
 ├── config/
 │   └── database.php   # Configuration et connexion à la base de données PDO
 ├── public/
 │   ├── css/           # Feuilles de style
 │   ├── js/            # Scripts de validation frontend
-│___└── index.php      # Point d'entrée principal (Routeur)
+│   └── index.php      # Point d'entrée principal (Routeur)
+```
 
 ## 🚀 Installation et Démarrage
 Prérequis
