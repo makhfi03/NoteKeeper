@@ -10,8 +10,8 @@ class NoteController {
     }
     
     public function create(){
-        $title = $_POST['title'] ?? '';
-        $content = $_POST['content'] ?? '';
+        $title = $_POST['title'];
+        $content = $_POST['content'];
         $note = new Note(null, $title, $content, $_SESSION['user']['id'], $this->conn);
         $note->create();
     }
@@ -23,8 +23,8 @@ class NoteController {
     }
 
     public function update($id){
-        $title = $_POST['title'] ?? '';
-        $content = $_POST['content'] ?? '';
+        $title = $_POST['title'];
+        $content = $_POST['content'];
         $note = new Note((int)$id, $title, $content, $_SESSION['user']['id'], $this->conn);
         $note->update();
     }

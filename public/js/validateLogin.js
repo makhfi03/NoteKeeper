@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form');
     if (!form) return;
 
-    const allInputs = document.querySelectorAll('input');
-    allInputs.forEach(input => {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
         input.addEventListener('input', function() {
             this.style.borderColor = '';
         });
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const passRegex = /^.{8,}$/;
 
-        allInputs.forEach(input => {
+        inputs.forEach(input => {
             let val = input.value.trim();
             
             switch (input.name) {

@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const forms = document.querySelectorAll('form[action="/notes/create"], form[action="/notes/edit"]');
     
     forms.forEach(form => {
-        const allInputs = form.querySelectorAll('input, textarea');
+        const inputs = form.querySelectorAll('input, textarea');
         
-        allInputs.forEach(input => {
+        inputs.forEach(input => {
             input.addEventListener('input', function() {
                 this.style.borderColor = '';
             });
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let errorMessage = "Erreurs trouvées :\n\n";
             const notEmptyRegex = /^[\s\S]{1,}$/; 
 
-            allInputs.forEach(input => {
+            inputs.forEach(input => {
                 let val = input.value.trim();
                 
                 switch (input.name) {

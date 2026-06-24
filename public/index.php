@@ -16,7 +16,6 @@ $request_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $protected_routes = ['/dashboard', '/notes/create', '/notes/edit', '/notes/delete'];
 if (in_array($request_path, $protected_routes) && !isset($_SESSION['user'])) {
     header("Location: /login");
-    exit;
 }
 
 switch ($request_path){
@@ -41,7 +40,6 @@ switch ($request_path){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $noteController->create();
             header("Location: /dashboard");
-            exit;
         }
         break;
 
@@ -52,7 +50,6 @@ switch ($request_path){
                 $noteController->update($id);
             }
             header("Location: /dashboard");
-            exit;
         }
         break;
 
@@ -63,14 +60,12 @@ switch ($request_path){
                 $noteController->delete($id);
             }
             header("Location: /dashboard");
-            exit;
         }
         break;
 
     case '/logout':
         session_destroy();
         header("Location: /home");
-        exit;
         break;
 
     default:
