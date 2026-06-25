@@ -66,12 +66,12 @@
             <form action="/register" method="POST" class="space-y-5">
                 <div>
                     <label for="lastname" class="block text-sm font-medium text-coffee-800 mb-1.5">Nom</label>
-                    <input type="text" id="lastname" name="lastname" class="w-full px-4 py-2.5 rounded-xl bg-white border border-cream-300 focus:border-coffee-400 focus:ring-2 focus:ring-coffee-400/20 outline-none transition-all text-coffee-900 placeholder-coffee-300" placeholder="Dupont" required>
+                    <input type="text" id="lastname" name="lastname" class="w-full px-4 py-2.5 rounded-xl bg-white border border-cream-300 focus:border-coffee-400 focus:ring-2 focus:ring-coffee-400/20 outline-none transition-all text-coffee-900 placeholder-coffee-300" placeholder="Nom" required>
                 </div>
 
                 <div>
                     <label for="firstname" class="block text-sm font-medium text-coffee-800 mb-1.5">Prénom</label>
-                    <input type="text" id="firstname" name="firstname" class="w-full px-4 py-2.5 rounded-xl bg-white border border-cream-300 focus:border-coffee-400 focus:ring-2 focus:ring-coffee-400/20 outline-none transition-all text-coffee-900 placeholder-coffee-300" placeholder="Jean" required>
+                    <input type="text" id="firstname" name="firstname" class="w-full px-4 py-2.5 rounded-xl bg-white border border-cream-300 focus:border-coffee-400 focus:ring-2 focus:ring-coffee-400/20 outline-none transition-all text-coffee-900 placeholder-coffee-300" placeholder="Prénom" required>
                 </div>
                 
                 <div>
